@@ -1,4 +1,4 @@
-# Next Auth v5 - Advanced Guide (2024)
+# Next Auth v5
 
 [Visit site](https://next14-authv5-sxidsvit.vercel.app/)
 
