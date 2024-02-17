@@ -1,17 +1,28 @@
-FROM node:20
+# Этап 1: Сборка зависимостей
+FROM node:20 AS builder
 
 WORKDIR /usr/app
 
 COPY package*.json ./
 
-RUN npm ci 
+# Установка зависимостей
+RUN npm install
 
+# Скопировать все файлы проекта
 COPY . .
 
-# RUN npm install prisma
+# Генерация Prisma Client
+RUN npx prisma generate --schema=./prisma/schema.docker.prisma
 
-# RUN npx prisma generate 
+# Этап 2: Создание минимального образа для запуска
+FROM node:20-alpine
 
+WORKDIR /usr/app
+
+COPY --from=builder /usr/app .
+
+# Откройте порт, который Next.js будет слушать в режиме разработки
 EXPOSE 3000
 
-CMD npm run dev && npx prisma generate
+# Запустите приложение в режиме разработки
+CMD ["npm", "run", "dev"]

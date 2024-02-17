@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  # Сервис для PostgreSQL
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432" 
-
-  # Сервис для Next.js и Prisma
   fronted:
     container_name: frontend
     image: frontend
@@ -31,8 +19,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       RESEND_API_KEY: ${RESEND_API_KEY}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
-    depends_on:
-      - postgres
+      PRISMA_BINARY_TARGET: ${PRISMA_BINARY_TARGET}
     volumes:
       - .:/usr/app
     restart: always

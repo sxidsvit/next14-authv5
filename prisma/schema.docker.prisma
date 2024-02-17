@@ -1,4 +1,5 @@
 // prisma/schema.prisma
+
 datasource db {
   provider  = "postgresql"
   url  	    = env("DATABASE_URL")
@@ -8,7 +9,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = [env("PRISMA_BINARY_TARGET")]
+  binaryTargets = ["linux-musl-arm64-openssl-3.0.x"]
 }
 
 enum UserRole {
